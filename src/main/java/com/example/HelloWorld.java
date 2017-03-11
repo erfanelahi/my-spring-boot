@@ -47,7 +47,6 @@ public class HelloWorld {
 
     @RequestMapping(value = "/stocks/{stockId}", method = RequestMethod.GET)
     public Stock getStockByStockId(@PathVariable Long stockId)  {
-
         return stockRepository.findStockByStockId(stockId);
     }
 }
