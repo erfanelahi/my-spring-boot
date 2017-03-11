@@ -13,6 +13,17 @@ public class Stock {
     @Column(name = "companyname")
     private String companyName;
 
+    @Column(name = "price", nullable = true)
+    private double price;
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public Long getStockId() {
         return stockId;
     }

@@ -40,6 +40,15 @@ public class HelloWorld {
         return jsonData;
     }
 
+    @RequestMapping(value = "/stocks/create", method = RequestMethod.GET)
+    public String createStock() {
+        Stock stock = new Stock();
+        stock.setCompanyName(luckyString.getMyString());
+        stock.setPrice(luckyNumber.getMyNumber());
+        stockRepository.save(stock);
+        return "Created";
+    }
+
     @RequestMapping(value = "/stocks", method = RequestMethod.GET)
     public List<Stock> getAllStocks() {
         return entityManager.createQuery("select s from Stock s").getResultList();
