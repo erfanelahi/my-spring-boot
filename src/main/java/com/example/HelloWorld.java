@@ -1,9 +1,6 @@
 package com.example;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
@@ -50,6 +47,7 @@ public class HelloWorld {
 
     @RequestMapping(value = "/stocks/{stockId}", method = RequestMethod.GET)
     public Stock getStockByStockId(@PathVariable Long stockId)  {
+
         return stockRepository.findStockByStockId(stockId);
     }
 }
