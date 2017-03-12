@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
+import javax.persistence.StoredProcedureQuery;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,8 @@ public class HelloWorld {
     private StockRepository stockRepository;
 
     @Autowired
-    public HelloWorld(LuckyNumber luckyNumber, LuckyString luckyString, EntityManager entityManager, StockRepository stockRepository) {
+    public HelloWorld(LuckyNumber luckyNumber, LuckyString luckyString,
+                      EntityManager entityManager, StockRepository stockRepository) {
         this.luckyNumber = luckyNumber;
         this.luckyString = luckyString;
         this.entityManager = entityManager;
@@ -55,7 +57,19 @@ public class HelloWorld {
     }
 
     @RequestMapping(value = "/stocks/{stockId}", method = RequestMethod.GET)
-    public Stock getStockByStockId(@PathVariable Long stockId)  {
+    public Stock getStockByStockId(@PathVariable Long stockId) {
         return stockRepository.findStockByStockId(stockId);
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public double add(@RequestParam(Stock.X) double x,
+                      @RequestParam(Stock.Y) double y) {
+        StoredProcedureQuery query =
+                this.entityManager.createNamedStoredProcedureQuery(Stock.Calculate);
+        query.setParameter(Stock.X, x);
+        query.setParameter(Stock.Y, y);
+        query.execute();
+        Double sum = (Double) query.getOutputParameterValue(Stock.Sum);
+        return sum;
     }
 }
