@@ -61,6 +61,11 @@ public class HelloWorld {
         return stockRepository.findStockByStockId(stockId);
     }
 
+    @RequestMapping(value = "/companies", method = RequestMethod.GET)
+    public List<Stock> getAllCompanies() {
+        return entityManager.createNamedQuery("getAllCompanies", Stock.class).getResultList();
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public double add(@RequestParam(Stock.X) double x,
                       @RequestParam(Stock.Y) double y) {

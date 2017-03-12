@@ -11,6 +11,14 @@ import javax.persistence.*;
                 @StoredProcedureParameter(mode = ParameterMode.OUT, type = Double.class, name = Stock.Sum)
         }
 )
+@NamedNativeQueries({
+        @NamedNativeQuery(
+                name = "getAllCompanies",
+                query = "SELECT stockid, companyname, price " +
+                        "FROM stock",
+                resultClass = Stock.class
+        )
+})
 @Entity
 @Table(name = "stock")
 public class Stock {
